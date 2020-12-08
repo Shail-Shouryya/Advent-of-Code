@@ -200,18 +200,21 @@ text = '''
 1072
 1893
 '''
-
-def part_one():
+def find_pair_sum_to_2020():
     all_numbers = [int(number) for number in text.split()]
     pairs = {}
     for number in all_numbers:
         if number in pairs:
-            first, second = number, pairs[number]
-            print(f'The two numbers that sum to 2020 are: {first}, {second}')
-            product = first * second
-            print (f'The product of these two numbers are: {product}')
-            return product
+            return number, pairs[number]
         else:
             pairs[2020 - number] = number
+
+def part_one():
+    first, second = find_pair_sum_to_2020()
+    product = first * second
+    print(f'The two numbers that sum to 2020 are: {first}, {second}')
+    print (f'The product of these two numbers is: {product}')
+    return product
+
 
 print(part_one())
