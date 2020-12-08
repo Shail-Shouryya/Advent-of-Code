@@ -260,7 +260,7 @@ def find_triplet_sum_to_2020():
                 third  = all_numbers[last]
                 product = first * second * third
                 print(f'The three numbers that sum to 2020 are: {first}, {second}, {third}')
-                print(f'The product of these two numbers is: {product}')
+                print(f'The product of these three numbers is:  {product}')
                 return product
         if current_triplet_sum < 2020: first += 1
         else:                          last  -= 1
