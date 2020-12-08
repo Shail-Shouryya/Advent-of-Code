@@ -38,15 +38,15 @@ Your puzzle answer was __________.
 def main():
     with open('puzzle_day_1.txt', 'r', encoding='utf-8') as puzzle_input:
         text = puzzle_input.read()
-    part_1_solution = part_one(text)
+    part_1_solution = solve_part_one(text)
     print('*' * 80)
-    part_2_solution = part_two(text)
+    part_2_solution = solve_part_one(text)
     print('*' * 80)
     print(f'Solution to part 1: {part_1_solution}')
     print(f'Solution to part 2: {part_2_solution}')
 
 
-def part_one(text):
+def solve_part_one(text):
     first, second = find_pair_sum_to_2020(text)
     product = first * second
     print(f'The two numbers that sum to 2020 are: {first}, {second}')
@@ -66,7 +66,7 @@ def find_pair_sum_to_2020(text):
 
 
 
-def part_two(text):
+def solve_part_two(text):
     return find_triplet_sum_to_2020(text)
 
 
