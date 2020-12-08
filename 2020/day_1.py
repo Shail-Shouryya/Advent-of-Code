@@ -206,8 +206,12 @@ def part_one():
     pairs = {}
     for number in all_numbers:
         if number in pairs:
-            print(number, pairs[number])
-            pair = number, pairs[number]
+            first, second = number, pairs[number]
+            print(f'The two numbers that sum to 2020 are: {first}, {second}')
+            product = first * second
+            print (f'The product of these two numbers are: {product}')
+            return product
         else:
             pairs[2020 - number] = number
-    print (pair[0] * pair[1])
+
+print(part_one())
