@@ -1,3 +1,7 @@
+def main():
+    part_1_solution = part_one()
+    print(f'Solution to part 1: {part_1_solution}')
+
 text = '''
 1728
 1954
@@ -200,14 +204,6 @@ text = '''
 1072
 1893
 '''
-def find_pair_sum_to_2020():
-    all_numbers = [int(number) for number in text.split()]
-    pairs = {}
-    for number in all_numbers:
-        if number in pairs:
-            return number, pairs[number]
-        else:
-            pairs[2020 - number] = number
 
 def part_one():
     first, second = find_pair_sum_to_2020()
@@ -217,4 +213,17 @@ def part_one():
     return product
 
 
-print(part_one())
+def find_pair_sum_to_2020():
+    all_numbers = [int(number) for number in text.split()]
+    pairs = {}
+    for number in all_numbers:
+        if number in pairs:
+            return number, pairs[number]
+        else:
+            pairs[2020 - number] = number
+
+
+
+
+if __name__ == '__main__':
+    main()
