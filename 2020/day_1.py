@@ -1,6 +1,8 @@
 def main():
     part_1_solution = part_one()
+    print('*' * 80)
     part_2_solution = part_two()
+    print('*' * 80)
     print(f'Solution to part 1: {part_1_solution}')
     print(f'Solution to part 2: {part_2_solution}')
 
