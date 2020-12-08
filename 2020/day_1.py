@@ -206,5 +206,7 @@ pairs = {}
 for number in all_numbers:
     if number in pairs:
         print(number, pairs[number])
+        pair = number, pairs[number]
     else:
         pairs[2020 - number] = number
+print (pair[0] * pair[1])
