@@ -40,7 +40,7 @@ def main():
         text = puzzle_input.read()
     part_1_solution = solve_part_one(text)
     print('*' * 80)
-    part_2_solution = solve_part_one(text)
+    part_2_solution = solve_part_two(text)
     print('*' * 80)
     print(f'Solution to part 1: {part_1_solution}')
     print(f'Solution to part 2: {part_2_solution}')
@@ -50,7 +50,7 @@ def solve_part_one(text):
     first, second = find_pair_sum_to_2020(text)
     product = first * second
     print(f'The two numbers that sum to 2020 are: {first}, {second}')
-    print (f'The product of these two numbers is: {product}')
+    print(f'The product of these two numbers is:  {product}')
     return product
 
 
@@ -67,7 +67,11 @@ def find_pair_sum_to_2020(text):
 
 
 def solve_part_two(text):
-    return find_triplet_sum_to_2020(text)
+    first, second, third = find_triplet_sum_to_2020(text)
+    product = first * second * third
+    print(f'The three numbers that sum to 2020 are: {first}, {second}, {third}')
+    print(f'The product of these three numbers is:  {product}')
+    return product
 
 
 def find_triplet_sum_to_2020(text):
@@ -92,13 +96,7 @@ def find_triplet_sum_to_2020(text):
             if   current_triplet_sum < 2020:  highest = mover - 1
             elif current_triplet_sum > 2020:  lowest = mover  + 1
             else:
-                first  = all_numbers[first]
-                second = all_numbers[mover]
-                third  = all_numbers[last]
-                product = first * second * third
-                print(f'The three numbers that sum to 2020 are: {first}, {second}, {third}')
-                print(f'The product of these three numbers is:  {product}')
-                return product
+                return all_numbers[first], all_numbers[mover], all_numbers[last]
         if current_triplet_sum < 2020: first += 1
         else:                          last  -= 1
 
