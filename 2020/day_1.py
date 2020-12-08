@@ -201,12 +201,13 @@ text = '''
 1893
 '''
 
-all_numbers = [int(number) for number in text.split()]
-pairs = {}
-for number in all_numbers:
-    if number in pairs:
-        print(number, pairs[number])
-        pair = number, pairs[number]
-    else:
-        pairs[2020 - number] = number
-print (pair[0] * pair[1])
+def part_one():
+    all_numbers = [int(number) for number in text.split()]
+    pairs = {}
+    for number in all_numbers:
+        if number in pairs:
+            print(number, pairs[number])
+            pair = number, pairs[number]
+        else:
+            pairs[2020 - number] = number
+    print (pair[0] * pair[1])
