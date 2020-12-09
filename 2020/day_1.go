@@ -93,8 +93,8 @@ func convertPuzzleTextToSlice(text string) []int {
 func solvePartOne(allNumbers []int) int {
 	first, second := findPairSumTo2020(allNumbers)
 	product := first * second
-	fmt.Println("The two numbers that sum to 2020 are: ", first, second)
-	fmt.Println("The product of these two numbers is:  ", product)
+	fmt.Println(fmt.Sprintf("The two numbers that sum to 2020 are: %d, %d", first, second))
+	fmt.Println(fmt.Sprintf("The product of these two numbers is:  %d", product))
 	return product
 }
 func findPairSumTo2020(allNumbers []int) (int, int) {
