@@ -36,10 +36,11 @@ Your puzzle answer was __________.
 '''
 
 def main():
-    text = process_puzzle_input('puzzle_day_1.txt')
-    part_1_solution = solve_part_one(text)
+    text        = process_puzzle_input('puzzle_day_1.txt')
+    all_numbers = [int(number) for number in text.split()]
+    part_1_solution = solve_part_one(all_numbers)
     print('*' * 80)
-    part_2_solution = solve_part_two(text)
+    part_2_solution = solve_part_two(all_numbers)
     print('*' * 80)
     print(f'Solution to part 1: {part_1_solution}')
     print(f'Solution to part 2: {part_2_solution}')
@@ -52,16 +53,15 @@ def process_puzzle_input(filename) :
         return puzzle_input.read()
 
 
-def solve_part_one(text):
-    first, second = find_pair_sum_to_2020(text)
+def solve_part_one(all_numbers):
+    first, second = find_pair_sum_to_2020(all_numbers)
     product = first * second
     print(f'The two numbers that sum to 2020 are: {first}, {second}')
     print(f'The product of these two numbers is:  {product}')
     return product
 
 
-def find_pair_sum_to_2020(text):
-    all_numbers = [int(number) for number in text.split()]
+def find_pair_sum_to_2020(all_numbers):
     pairs = {}
     for number in all_numbers:
         if number in pairs:
@@ -72,16 +72,15 @@ def find_pair_sum_to_2020(text):
 
 
 
-def solve_part_two(text):
-    first, second, third = find_triplet_sum_to_2020(text)
+def solve_part_two(all_numbers):
+    first, second, third = find_triplet_sum_to_2020(all_numbers)
     product = first * second * third
     print(f'The three numbers that sum to 2020 are: {first}, {second}, {third}')
     print(f'The product of these three numbers is:  {product}')
     return product
 
 
-def find_triplet_sum_to_2020(text):
-    all_numbers = [int(number) for number in text.split()]
+def find_triplet_sum_to_2020(all_numbers):
     all_numbers.sort()
     first = 0
     last  = len(all_numbers) - 1
