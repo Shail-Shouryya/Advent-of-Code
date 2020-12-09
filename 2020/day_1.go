@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"io/ioutil"
+)
+
 // --- Day 1: Report Repair ---
 // After saving Christmas five years in a row, you've decided to take a vacation at a nice resort on a tropical island. Surely, Christmas will go on without you.
 //
@@ -36,5 +41,20 @@ package main
 // Your puzzle answer was __________.
 
 func solveDay1() {
-	// to do
+	text := readPuzzleInput("puzzle_day_1.txt")
+	fmt.Println(text)
+}
+
+func readPuzzleInput(fileName string) string {
+	// f is a slice of type bytes
+	// error is of type error
+	f, error := ioutil.ReadFile(fileName)
+	if error != nil {
+		fmt.Println("ERROR! The exact error was ", error)
+	}
+	// convert the slice of bytes to its string representation
+	// without this step, we get a slice of bytes
+	// representing its corresponding character's
+	// Unicode code point
+	return string(f)
 }
