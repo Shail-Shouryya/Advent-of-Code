@@ -53,6 +53,11 @@ def read_puzzle_input(filename) :
         return puzzle_input.read()
 
 def convert_puzzle_text_to_list(text):
+    # take the text and split it into chunks separated by
+    # whitespace (ANY whitespace)
+    # then iterate through the chunks of text and
+    # convert them into an integer before adding
+    # it to a list
     return [int(number) for number in text.split()]
 
 
