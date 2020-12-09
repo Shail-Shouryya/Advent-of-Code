@@ -48,7 +48,8 @@ func solveDay1() {
 	printLineDivide()
 	part1Solution := solvePartOne(allNumbers)
 	printLineDivide()
-	fmt.Println(part1Solution)
+	fmt.Println("Solution to day 1 part 1: ", part1Solution)
+
 	printLineDivide()
 }
 

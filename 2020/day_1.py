@@ -43,8 +43,8 @@ def main():
     print('*' * 80)
     part_2_solution = solve_part_two(all_numbers)
     print('*' * 80)
-    print(f'Solution to part 1: {part_1_solution}')
-    print(f'Solution to part 2: {part_2_solution}')
+    print(f'Solution to day 1 part 1: {part_1_solution}')
+    print(f'Solution to day 1 part 2: {part_2_solution}')
     print('*' * 80)
 
 
