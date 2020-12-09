@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"strconv"
+	"strings"
 )
 
 // --- Day 1: Report Repair ---
@@ -42,7 +44,8 @@ import (
 
 func solveDay1() {
 	text := readPuzzleInput("puzzle_day_1.txt")
-	fmt.Println(text)
+	allNumbers := convertPuzzleTextToSlice(text)
+	fmt.Println(allNumbers)
 }
 
 func readPuzzleInput(fileName string) string {
@@ -56,5 +59,27 @@ func readPuzzleInput(fileName string) string {
 	// without this step, we get a slice of bytes
 	// representing its corresponding character's
 	// Unicode code point
-	return string(f)
+	text := string(f)
+	fmt.Println(text)
+	return text
+}
+
+func convertPuzzleTextToSlice(text string) []int {
+	textentries := strings.Split(text, "\n")
+	var intEntries []int
+	for _, entry := range textentries {
+		number, err := strconv.Atoi(entry)
+		// If there is an error converting the text
+		// to an integer (could happen if text is a
+		// text character, an empty space, or an
+		// empty line), we don't add it to our slice.
+		// If the string conversion goes fine, we
+		// add the converted character (number variable)
+		// to our slice of integers, intEntries.
+		// NOTE Atoi is short for "ASCII to integer"
+		if err == nil {
+			intEntries = append(intEntries, number)
+		}
+	}
+	return intEntries
 }
