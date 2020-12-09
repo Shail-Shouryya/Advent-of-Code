@@ -52,9 +52,10 @@ def read_puzzle_input(filename) :
     with open(filename, 'r', encoding='utf-8') as puzzle_input:
         return puzzle_input.read()
 
-
 def convert_puzzle_text_to_list(text):
     return [int(number) for number in text.split()]
+
+
 
 
 def solve_part_one(all_numbers):
@@ -63,7 +64,6 @@ def solve_part_one(all_numbers):
     print(f'The two numbers that sum to 2020 are: {first}, {second}')
     print(f'The product of these two numbers is:  {product}')
     return product
-
 
 def find_pair_sum_to_2020(all_numbers):
     pairs = {}
@@ -82,7 +82,6 @@ def solve_part_two(all_numbers):
     print(f'The three numbers that sum to 2020 are: {first}, {second}, {third}')
     print(f'The product of these three numbers is:  {product}')
     return product
-
 
 def find_triplet_sum_to_2020(all_numbers):
     all_numbers.sort()
