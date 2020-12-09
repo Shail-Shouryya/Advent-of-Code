@@ -71,6 +71,7 @@ func readPuzzleInput(fileName string) string {
 
 func convertPuzzleTextToSlice(text string) []int {
 	textentries := strings.Split(text, "\n")
+	fmt.Println(textentries)
 	var intEntries []int
 	for _, entry := range textentries {
 		number, err := strconv.Atoi(entry)
@@ -84,6 +85,8 @@ func convertPuzzleTextToSlice(text string) []int {
 		// NOTE Atoi is short for "ASCII to integer"
 		if err == nil {
 			intEntries = append(intEntries, number)
+		} else {
+			fmt.Println(err)
 		}
 	}
 	fmt.Println(intEntries)
