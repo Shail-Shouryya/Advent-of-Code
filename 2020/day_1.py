@@ -36,7 +36,7 @@ Your puzzle answer was __________.
 '''
 
 def main():
-    text        = process_puzzle_input('puzzle_day_1.txt')
+    text        = read_puzzle_input('puzzle_day_1.txt')
     all_numbers = convert_puzzle_text_to_list(text)
     part_1_solution = solve_part_one(all_numbers)
     print('*' * 80)
@@ -48,7 +48,7 @@ def main():
 
 
 
-def process_puzzle_input(filename) :
+def read_puzzle_input(filename) :
     with open(filename, 'r', encoding='utf-8') as puzzle_input:
         return puzzle_input.read()
 
