@@ -49,6 +49,7 @@ func solveDay1() {
 	part1Solution := solvePartOne(allNumbers)
 	printLineDivide()
 	fmt.Println(part1Solution)
+	printLineDivide()
 }
 
 func readPuzzleInput(fileName string) string {

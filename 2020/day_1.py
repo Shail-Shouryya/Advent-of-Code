@@ -38,12 +38,14 @@ Your puzzle answer was __________.
 def main():
     text        = read_puzzle_input('puzzle_day_1.txt')
     all_numbers = convert_puzzle_text_to_list(text)
+    print('*' * 80)
     part_1_solution = solve_part_one(all_numbers)
     print('*' * 80)
     part_2_solution = solve_part_two(all_numbers)
     print('*' * 80)
     print(f'Solution to part 1: {part_1_solution}')
     print(f'Solution to part 2: {part_2_solution}')
+    print('*' * 80)
 
 
 
