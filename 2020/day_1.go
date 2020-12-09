@@ -45,7 +45,10 @@ import (
 func solveDay1() {
 	text := readPuzzleInput("puzzle_day_1.txt")
 	allNumbers := convertPuzzleTextToSlice(text)
-	fmt.Println(allNumbers)
+	printLineDivide()
+	part1Solution := solvePartOne(allNumbers)
+	printLineDivide()
+	fmt.Println(part1Solution)
 }
 
 func readPuzzleInput(fileName string) string {
@@ -81,5 +84,37 @@ func convertPuzzleTextToSlice(text string) []int {
 			intEntries = append(intEntries, number)
 		}
 	}
+	fmt.Println(intEntries)
 	return intEntries
+}
+
+func solvePartOne(allNumbers []int) int {
+	first, second := findPairSumTo2020(allNumbers)
+	product := first * second
+	fmt.Println("The two numbers that sum to 2020 are: ", first, second)
+	fmt.Println("The product of these two numbers is:  ", product)
+	return product
+}
+func findPairSumTo2020(allNumbers []int) (int, int) {
+	// Declare AND initialize a map that takes an
+	// integer as a key and an integer as the value
+	// to its key - similar to a dictionary in Python,
+	// a hash in Ruby, and a HashMap in Java.
+	// It's important to initialize the map since
+	// just declaring a map but NOT initializing it
+	// (e.g. var pairs map[int]int) will result in
+	// this compile time error:
+	// panic: assignment to entry in nil map
+	pairs := make(map[int]int)
+	// fmt.Println(pairs)
+
+	// https://stackoverflow.com/questions/2050391/how-to-check-if-a-map-contains-a-key-in-go
+	for _, number := range allNumbers {
+		value, ok := pairs[number]
+		if ok {
+			return number, value
+		}
+		pairs[2020-number] = number
+	}
+	return 0, -1
 }
