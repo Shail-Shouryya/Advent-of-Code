@@ -36,14 +36,20 @@ Your puzzle answer was __________.
 '''
 
 def main():
-    with open('puzzle_day_1.txt', 'r', encoding='utf-8') as puzzle_input:
-        text = puzzle_input.read()
+    text = process_puzzle_input('puzzle_day_1.txt')
     part_1_solution = solve_part_one(text)
     print('*' * 80)
     part_2_solution = solve_part_two(text)
     print('*' * 80)
     print(f'Solution to part 1: {part_1_solution}')
     print(f'Solution to part 2: {part_2_solution}')
+
+
+
+
+def process_puzzle_input(filename) :
+    with open(filename, 'r', encoding='utf-8') as puzzle_input:
+        return puzzle_input.read()
 
 
 def solve_part_one(text):
