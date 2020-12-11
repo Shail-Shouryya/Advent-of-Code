@@ -110,16 +110,11 @@ def find_triplet_sum_to_2020(all_numbers):
             # print(lowest, mid, highest, current_triplet_sum)
             mid = lowest + (highest - lowest)//2
             current_triplet_sum = all_numbers[left] + all_numbers[mid] + all_numbers[right]
-            if   current_triplet_sum < 2020:
-                lowest  = mid + 1
-                mid = lowest + (highest - lowest)//2
-            elif current_triplet_sum > 2020:
-                highest = mid - 1
-                mid = lowest + (highest - lowest)//2
-            else:
-                # current_triplet_sum is equal to 2020
-                # so we return and effectively exit both while loops
+            if current_triplet_sum == 2020:
                 return all_numbers[left], all_numbers[mid], all_numbers[right]
+            elif current_triplet_sum < 2020: lowest  = mid + 1
+            elif current_triplet_sum > 2020: highest = mid - 1
+            mid = lowest + (highest - lowest)//2
         if current_triplet_sum < 2020: left  += 1
         else:                          right -= 1
 
