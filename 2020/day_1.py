@@ -107,7 +107,7 @@ def find_triplet_sum_to_2020(all_numbers):
         highest = right
         while lowest < mover < highest:
             # print(lowest, highest, current_triplet_sum)
-            mover = left + (highest - lowest)//2
+            mover = lowest + (highest - lowest)//2
             current_triplet_sum = all_numbers[left] + all_numbers[mover] + all_numbers[right]
             if   current_triplet_sum < 2020: highest = mover - 1
             elif current_triplet_sum > 2020: lowest  = mover + 1
