@@ -65,13 +65,13 @@ func readPuzzleInput(fileName string) string {
 	// representing its corresponding character's
 	// Unicode code point
 	text := string(f)
-	fmt.Println(text)
+	fmt.Println(text) // this should look like day_1.txt
 	return text
 }
 
 func convertPuzzleTextToSlice(text string) []int {
 	textentries := strings.Split(text, "\n")
-	fmt.Println(textentries)
+	fmt.Println(textentries) // this should take all the numbers from day_1.txt and put them in a slice (there'll be an empty space at the end due to an empty newlin at EOF)
 	var intEntries []int
 	for _, entry := range textentries {
 		number, err := strconv.Atoi(entry)
@@ -89,7 +89,7 @@ func convertPuzzleTextToSlice(text string) []int {
 			fmt.Println(err)
 		}
 	}
-	fmt.Println(intEntries)
+	fmt.Println(intEntries) // this should be almost identical to the print statement above the for block, except all invalid lines (e.g. empty lines) are filtered out
 	return intEntries
 }
 
