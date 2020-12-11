@@ -92,28 +92,28 @@ def solve_part_two(all_numbers):
 
 def find_triplet_sum_to_2020(all_numbers):
     all_numbers.sort()
-    first = 0
-    last  = len(all_numbers) - 1
+    left      = 0
+    right     = len(all_numbers) - 1
     not_found = True
     # print(max(all_numbers))
     current_triplet_sum = 0
-    while all_numbers[last]  > 2020: last  -= 1
-    while all_numbers[first] < 0:    first  += 1
-    mover = first + 1           # initialize mover as first + 1 to start while loop below
+    while all_numbers[right] > 2020: right  -= 1
+    while all_numbers[left]  < 0:    left   += 1
+    mover = left + 1           # initialize mover as left + 1 to start while loop below
     while not_found:
         # print(current_triplet_sum)
-        lowest  = first
-        highest = last
+        lowest  = left
+        highest = right
         while lowest < mover < highest:
             # print(lowest, highest, current_triplet_sum)
-            mover = first + (highest - lowest)//2
-            current_triplet_sum = all_numbers[first] + all_numbers[mover] + all_numbers[last]
-            if   current_triplet_sum < 2020:  highest = mover - 1
-            elif current_triplet_sum > 2020:  lowest = mover  + 1
+            mover = left + (highest - lowest)//2
+            current_triplet_sum = all_numbers[left] + all_numbers[mover] + all_numbers[right]
+            if   current_triplet_sum < 2020: highest = mover - 1
+            elif current_triplet_sum > 2020: lowest  = mover + 1
             else:
-                return all_numbers[first], all_numbers[mover], all_numbers[last]
-        if current_triplet_sum < 2020: first += 1
-        else:                          last  -= 1
+                return all_numbers[left], all_numbers[mover], all_numbers[right]
+        if current_triplet_sum < 2020: left  += 1
+        else:                          right -= 1
 
 
 
