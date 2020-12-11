@@ -108,9 +108,9 @@ def find_triplet_sum_to_2020(all_numbers):
         lowest  = left
         highest = right
         mid = lowest + (highest - lowest)//2
-        print('outer loop')
+        # print('outer loop')
         while lowest < mid < highest:
-            print(lowest, mid, highest, current_triplet_sum, outer_iterations, total_iterations)
+            # print(lowest, mid, highest, current_triplet_sum, outer_iterations, total_iterations)
             current_triplet_sum = all_numbers[left] + all_numbers[mid] + all_numbers[right]
             if current_triplet_sum == 2020:
                 return all_numbers[left], all_numbers[mid], all_numbers[right]
