@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -48,8 +49,10 @@ func solveDay1() {
 	printLineDivide()
 	part1Solution := solvePartOne(allNumbers)
 	printLineDivide()
-	fmt.Println("Solution to day 1 part 1: ", part1Solution)
-
+	part2Solution := solvePartTwo(allNumbers)
+	printLineDivide()
+	fmt.Println("Solution to day 1 part 1:", part1Solution)
+	fmt.Println("Solution to day 1 part 2:", part2Solution)
 	printLineDivide()
 }
 
@@ -65,13 +68,13 @@ func readPuzzleInput(fileName string) string {
 	// representing its corresponding character's
 	// Unicode code point
 	text := string(f)
-	fmt.Println(text) // this should look like day_1.txt
+	// fmt.Println(text) // this should look like day_1.txt
 	return text
 }
 
 func convertPuzzleTextToSlice(text string) []int {
 	textentries := strings.Split(text, "\n")
-	fmt.Println(textentries) // this should take all the numbers from day_1.txt and put them in a slice (there'll be an empty space at the end due to an empty newlin at EOF)
+	// fmt.Println(textentries) // this should take all the numbers from day_1.txt and put them in a slice (there'll be an empty space at the end due to an empty newlin at EOF)
 	var intEntries []int
 	for _, entry := range textentries {
 		number, err := strconv.Atoi(entry)
@@ -86,10 +89,10 @@ func convertPuzzleTextToSlice(text string) []int {
 		if err == nil {
 			intEntries = append(intEntries, number)
 		} else {
-			fmt.Println(err)
+			// fmt.Println(err)
 		}
 	}
-	fmt.Println(intEntries) // this should be almost identical to the print statement above the for block, except all invalid lines (e.g. empty lines) are filtered out
+	// fmt.Println(intEntries) // this should be almost identical to the print statement above the for block, except all invalid lines (e.g. empty lines) are filtered out
 	return intEntries
 }
 
@@ -122,4 +125,60 @@ func findPairSumTo2020(allNumbers []int) (int, int) {
 		pairs[2020-number] = number
 	}
 	return 0, -1
+}
+
+func solvePartTwo(allNumbers []int) int {
+	first, second, third := findTripletSumTo2020(allNumbers)
+	product := first * second * third
+	fmt.Println(fmt.Sprintf("The three numbers that sum to 2020 are: %d, %d, %d", first, second, third))
+	fmt.Println(fmt.Sprintf("The product of these three numbers is:  %d", product))
+	return product
+}
+
+func findTripletSumTo2020(allNumbers []int) (int, int, int) {
+	sort.Ints(allNumbers) // the sort.DataType vulit in package does NOT return anything, modifies slice in place!
+	// fmt.Println(allNumbers)
+	left := 0
+	right := len(allNumbers) - 1
+	currentTripletSum := 0
+	smallest, middle, largest := -1, -1, -1
+	for allNumbers[left] < 0 {
+		left++
+	}
+	for allNumbers[right] > 2020 {
+		right--
+	}
+	lowest := left
+	highest := right
+	outerIterations := 0
+	totalIterations := 0
+	for currentTripletSum != 2020 {
+		// effectively a while loop until we find the triplet
+		lowest = left
+		highest = right
+		mid := lowest + (highest-lowest)/2
+		for (lowest < mid) && (mid < highest) && (currentTripletSum != 2020) {
+			mid = lowest + (highest-lowest)/2
+			currentTripletSum = allNumbers[left] + allNumbers[mid] + allNumbers[right]
+			// fmt.Println(lowest, mid, highest, currentTripletSum, outerIterations, totalIterations)
+			if currentTripletSum == 2020 {
+				smallest, middle, largest = allNumbers[left], allNumbers[mid], allNumbers[right]
+			} else if currentTripletSum < 2020 {
+				lowest = mid + 1
+			} else if currentTripletSum > 2020 {
+				highest = mid - 1
+			}
+			mid = lowest + (highest-lowest)/2
+			totalIterations++
+		}
+		if currentTripletSum < 2020 {
+			left++
+		} else if currentTripletSum > 2020 {
+			right--
+		}
+		outerIterations++
+		// otherwise currentTripletSum is equal to 2020, and
+		// we'll break out of the outerIterations loop on the next iteration
+	}
+	return smallest, middle, largest
 }
