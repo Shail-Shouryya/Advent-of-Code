@@ -48,7 +48,10 @@ def main():
     print('*' * 80)
     part_1_solution = solve_part_1(all_lines)
     print('*' * 80)
+    part_2_solution = solve_part_2(all_lines)
+    print('*' * 80)
     print(f'Solution to day 2 part 1: {part_1_solution}')
+    print(f'Solution to day 2 part 2: {part_2_solution}')
     print('*' * 80)
 
 
@@ -90,6 +93,56 @@ def check_password_for_validity(index, line):
         if least <= actual_count_of_character <= greatest:
             return True
     return False
+
+
+
+
+def solve_part_2(all_lines):
+    valid_passwords = 0
+    for index, line in enumerate(all_lines):
+        is_valid = check_password_for_validity_using_official_policy(index, line)
+        if is_valid:
+            valid_passwords += 1
+    print(f'There are {valid_passwords} valid passwords in this file based on the independent password requirement for each password using the OFFICIAL policy.')
+    return valid_passwords
+
+
+def check_password_for_validity_using_official_policy(index, line):
+    try:
+        requirement, password    = line.split(':')
+        requirement              = requirement.strip()
+        password                 = password.strip()
+        p_range, character       = requirement.split() # split by whitespace (should be one space character)
+        position_1, position_2 = [int(number) for number in p_range.split('-')]
+    except ValueError as error_message: # example -> ValueError: not enough values to unpack (expected 2, got 1)
+        print(f'Line {index} is improperly formatted. The exact message was:\n{error_message}')
+    except Exception as some_other_error:
+        print(f'There was an unexpected error when processing line {index}. The exact message was:\n{some_other_error}')
+    else:
+        position_1_is_valid = False
+        position_2_is_valid = False
+        password_length = len(password)
+        if 0 <= position_1 - 1 < password_length: position_1_is_valid = password[position_1 - 1] == character
+        if 0 <= position_2 - 1 < password_length: position_2_is_valid = password[position_2 - 1] == character
+        # ^ is the XOR operator, and the result is caluclated by
+        # flipping the bits at any position where the two arguments have a different value
+        # since position_1_is_valid and position_2_is_valid can only have the value of
+        # True or False in this scenario, the possible bit values for the arguments can only be
+        # either 0 (False) or 1 (True)
+        # 1 ^ 1 -> 0
+        # 1 ^ 0 -> 1
+        # 0 ^ 1 -> 1
+        # 0 ^ 0 -> 0
+        # since we want to determine if the password has the designated character appear
+        # only in ONE of the designated positions, performing
+        # position_1_is_valid XOR position_2_is_valid
+        # gives us exactly what we want
+        is_valid = position_1_is_valid ^ position_2_is_valid
+        print(f'Password {index:>4} requires "{character}" to occur at either position {position_1:>3} OR {position_2:>3} (but not at both nor neither positions): This is {is_valid}')
+        if is_valid:
+            return True
+    return False
+
 
 
 
