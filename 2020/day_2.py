@@ -53,6 +53,7 @@ def main():
     print(f'Solution to day 2 part 1: {part_1_solution}')
     print(f'Solution to day 2 part 2: {part_2_solution}')
     print('*' * 80)
+    return part_1_solution, part_2_solution
 
 
 
