@@ -45,7 +45,7 @@ import (
 
 func solveDay1() {
 	text := readPuzzleInput("puzzle_day_1.txt")
-	allNumbers := convertPuzzleTextToSlice(text)
+	allNumbers := convertPuzzleTextToSliceOfNumbers(text)
 	printLineDivide()
 	part1Solution := solvePartOne(allNumbers)
 	printLineDivide()
@@ -72,7 +72,7 @@ func readPuzzleInput(fileName string) string {
 	return text
 }
 
-func convertPuzzleTextToSlice(text string) []int {
+func convertPuzzleTextToSliceOfNumbers(text string) []int {
 	textentries := strings.Split(text, "\n")
 	// fmt.Println(textentries) // this should take all the numbers from day_1.txt and put them in a slice (there'll be an empty space at the end due to an empty newlin at EOF)
 	var intEntries []int

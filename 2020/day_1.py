@@ -37,7 +37,7 @@ Your puzzle answer was __________.
 
 def main():
     text        = read_puzzle_input('puzzle_day_1.txt')
-    all_numbers = convert_puzzle_text_to_list(text)
+    all_numbers = convert_puzzle_text_to_list_of_numbers(text)
     print('*' * 80)
     part_1_solution = solve_part_one(all_numbers)
     print('*' * 80)
@@ -55,7 +55,7 @@ def read_puzzle_input(filename) :
     with open(filename, 'r', encoding='utf-8') as puzzle_input:
         return puzzle_input.read()
 
-def convert_puzzle_text_to_list(text):
+def convert_puzzle_text_to_list_of_numbers(text):
     # take the text and split it into chunks separated by
     # whitespace (ANY whitespace)
     # then iterate through the chunks of text and
