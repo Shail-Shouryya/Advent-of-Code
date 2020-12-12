@@ -39,9 +39,9 @@ def main():
     text        = read_puzzle_input('puzzle_day_1.txt')
     all_numbers = convert_puzzle_text_to_list_of_numbers(text)
     print('*' * 80)
-    part_1_solution = solve_part_one(all_numbers)
+    part_1_solution = solve_part_1(all_numbers)
     print('*' * 80)
-    part_2_solution = solve_part_two(all_numbers)
+    part_2_solution = solve_part_2(all_numbers)
     print('*' * 80)
     print(f'Solution to day 1 part 1: {part_1_solution}')
     print(f'Solution to day 1 part 2: {part_2_solution}')
@@ -66,7 +66,7 @@ def convert_puzzle_text_to_list_of_numbers(text):
 
 
 
-def solve_part_one(all_numbers):
+def solve_part_1(all_numbers):
     first, second = find_pair_sum_to_2020(all_numbers)
     product = first * second
     print(f'The two numbers that sum to 2020 are: {first}, {second}')
@@ -84,7 +84,7 @@ def find_pair_sum_to_2020(all_numbers):
 
 
 
-def solve_part_two(all_numbers):
+def solve_part_2(all_numbers):
     first, second, third = find_triplet_sum_to_2020(all_numbers)
     product = first * second * third
     print(f'The three numbers that sum to 2020 are: {first}, {second}, {third}')

@@ -47,9 +47,9 @@ func solveDay1() {
 	text := readPuzzleInput("puzzle_day_1.txt")
 	allNumbers := convertPuzzleTextToSliceOfNumbers(text)
 	printLineDivide()
-	part1Solution := solvePartOne(allNumbers)
+	part1Solution := solvePart1(allNumbers)
 	printLineDivide()
-	part2Solution := solvePartTwo(allNumbers)
+	part2Solution := solvePart2(allNumbers)
 	printLineDivide()
 	fmt.Println("Solution to day 1 part 1:", part1Solution)
 	fmt.Println("Solution to day 1 part 2:", part2Solution)
@@ -96,7 +96,7 @@ func convertPuzzleTextToSliceOfNumbers(text string) []int {
 	return intEntries
 }
 
-func solvePartOne(allNumbers []int) int {
+func solvePart1(allNumbers []int) int {
 	first, second := findPairSumTo2020(allNumbers)
 	product := first * second
 	fmt.Println(fmt.Sprintf("The two numbers that sum to 2020 are: %d, %d", first, second))
@@ -127,7 +127,7 @@ func findPairSumTo2020(allNumbers []int) (int, int) {
 	return 0, -1
 }
 
-func solvePartTwo(allNumbers []int) int {
+func solvePart2(allNumbers []int) int {
 	first, second, third := findTripletSumTo2020(allNumbers)
 	product := first * second * third
 	fmt.Println(fmt.Sprintf("The three numbers that sum to 2020 are: %d, %d, %d", first, second, third))
