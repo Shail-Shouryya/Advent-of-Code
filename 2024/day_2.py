@@ -32,3 +32,70 @@ So, in this example, 2 reports are safe.
 
 Analyze the unusual data from the engineers. How many reports are safe?
 '''
+
+
+def main(
+    file_location: str,
+) -> tuple[int, None]:
+    reports         = read_puzzle_input(file_location)
+    print('*' * 80)
+    part_1_solution = solve_part_1(reports)
+    print('*' * 80)
+    part_2_solution = solve_part_2(reports)
+    print('*' * 80)
+    print(f'Solution to day 2 part 1: {part_1_solution}')
+    print(f'Solution to day 2 part 2: {part_2_solution}')
+    print('*' * 80)
+    return (part_1_solution, part_2_solution)
+
+
+def read_puzzle_input(
+    file_location: str,
+) -> list[list[int]]:
+    reports = []
+    with open(file=file_location, mode='r', buffering=-1, encoding='utf-8', newline=None) as file:
+        for line in file:
+            levels = line.split()
+            reports.append([int(level) for level in levels])
+    return reports
+
+
+def solve_part_1(
+    reports: list[list[int]],
+) -> int:
+    safe_reports = 0
+    for count, report in enumerate(reports, 1):
+        safe_reports += report_is_safe(report)
+    print(f'The number of safe reports from {count} reports is: {safe_reports}')
+    return safe_reports
+
+
+def report_is_safe(
+    report: list[list[int]],
+    absolute_difference: int = 3,
+) -> bool:
+    is_safe  = 1
+    previous = report[0]                   # initialize to first value of list
+    change   = (report[1] - report[0]) > 0 # all changes must be either positive or negative
+    for index in range(1, len(report)):
+        level          = report[index]
+        current_change = level - previous
+        if (
+            abs(current_change) > absolute_difference or # change is greater than allowed difference
+            (current_change > 0) != change            or # change is not consistently montonically increasing/decreasing
+            current_change == 0                          # there is no change
+        ):
+            is_safe = 0
+            break
+        previous = level
+    return is_safe
+
+
+def solve_part_2(
+    reports: list[list[int]],
+) -> None:
+    return None
+
+
+if __name__ == '__main__':
+    main('day_2.txt')
