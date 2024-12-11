@@ -17,3 +17,51 @@ Only the four highlighted sections are real mul instructions. Adding up the resu
 
 Scan the corrupted memory for uncorrupted mul instructions. What do you get if you add up all of the results of the multiplications?
 '''
+
+import re
+
+def main(
+    file_location: str,
+) -> tuple[int, None]:
+    instructions         = read_puzzle_input(file_location)
+    print('*' * 80)
+    part_1_solution = solve_part_1(instructions)
+    print('*' * 80)
+    part_2_solution = solve_part_2(instructions)
+    print('*' * 80)
+    print(f'Solution to day 2 part 1: {part_1_solution}')
+    print(f'Solution to day 2 part 2: {part_2_solution}')
+    print('*' * 80)
+    return (part_1_solution, part_2_solution)
+
+
+def read_puzzle_input(
+    file_location: str,
+) -> str:
+    with open(file=file_location, mode='r', buffering=-1, encoding='utf-8', newline=None) as file:
+        return file.read()
+
+
+def solve_part_1(
+    instructions: str
+) -> int:
+    pairs = re.findall(
+        'mul\((\d{1,3},\d{1,3})\)',
+        instructions
+    )
+    sum_of_all_products = 0
+    for pair in pairs:
+        first, second = pair.split(',')
+        sum_of_all_products += int(first) * int(second)
+    print(f'The sum of adding up all of the results of the multiplications is {sum_of_all_products}')
+    return sum_of_all_products
+
+
+def solve_part_2(
+    instructions: str
+) -> None:
+    pass
+
+
+if __name__ == '__main__':
+    main('day_3.txt')
