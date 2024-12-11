@@ -59,6 +59,8 @@ How many stones would you have after blinking a total of 75 times?
 '''
 
 
+import functools
+
 
 def main(
     file_location: str,
@@ -118,7 +120,9 @@ def solve_part_2(
     stones: list[int],
 ) -> int:
     blinks = 75
-    number_of_stones_after_75_blinks = transform_stone_line_still_too_slow(stones, blinks)
+    for iteration in range(blinks+1):
+        number_of_stones_after_75_blinks = transform_stone_line_optimized(tuple(stones), iteration)
+        print(f'There are {number_of_stones_after_75_blinks} stones after {iteration} blinks')
     return number_of_stones_after_75_blinks
 
 
@@ -145,6 +149,31 @@ def transform_stone_line_still_too_slow(
             # print(start, iteration, len(current), current)
         total_stones += len(updated_line)
         # print(stone, total_stones)
+    return total_stones
+
+
+@functools.lru_cache(maxsize=2**40)
+def transform_stone_line_optimized(
+    stones: list[int],
+    blinks: int,
+) -> int:
+    if blinks == 0:
+        return len(stones)
+    total_stones = 0
+    for stone in stones:
+        # current = [start]
+        updated_line = []
+        # for stone in current:
+        if stone == 0: updated_line.append(1)
+        elif len(str(stone)) % 2 == 0:
+            stone_s = str(stone)
+            total = len(stone_s)
+            left, right = stone_s[:total//2], stone_s[total//2:]
+            updated_line.append(int(left))
+            updated_line.append(int(right))
+        else:
+            updated_line.append(stone * 2024)
+        total_stones += transform_stone_line_optimized(tuple(updated_line), blinks-1)
     return total_stones
 
 
