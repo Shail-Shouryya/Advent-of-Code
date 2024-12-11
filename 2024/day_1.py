@@ -39,3 +39,48 @@ To find the total distance between the left list and the right list, add up the 
 Your actual left and right lists contain many location IDs. What is the total distance between your lists?
 
 '''
+
+def main():
+    left, right     = read_puzzle_input('day_1.txt')
+    print('*' * 80)
+    part_1_solution = solve_part_1(left, right)
+    print('*' * 80)
+    part_2_solution = solve_part_2()
+    print('*' * 80)
+    print(f'Solution to day 1 part 1: {part_1_solution}')
+    print(f'Solution to day 1 part 2: {part_2_solution}')
+    print('*' * 80)
+    return part_1_solution, part_2_solution
+
+
+def read_puzzle_input(
+    file_name: str,
+) -> tuple[int, int]:
+    left, right = [], []
+    with open(file=file_name, mode='r', buffering=-1, encoding='utf-8', newline=None) as file:
+        for line in file:
+            first, second = line.split()
+            left.append(int(first))
+            right.append(int(second))
+    return (left, right)
+
+
+def solve_part_1(
+    left: list[int],
+    right: list[int],
+) -> int:
+    return sum(
+        abs(left - right)
+        for left, right in zip(
+            sorted(left), sorted(right)
+        )
+    )
+
+
+def solve_part_2(
+) -> None:
+    return None
+
+
+if __name__ == '__main__':
+    main()
