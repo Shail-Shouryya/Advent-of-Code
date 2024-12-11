@@ -68,17 +68,21 @@ So, for these example lists, the similarity score at the end of this process is 
 Once again consider your left and right lists. What is their similarity score?
 '''
 
-def main():
-    left, right     = read_puzzle_input('day_1.txt')
+import collections
+
+def main(
+    file_location: str,
+) -> tuple[int, int]:
+    left, right     = read_puzzle_input(file_location)
     print('*' * 80)
     part_1_solution = solve_part_1(left, right)
     print('*' * 80)
-    part_2_solution = solve_part_2()
+    part_2_solution = solve_part_2(left, right)
     print('*' * 80)
     print(f'Solution to day 1 part 1: {part_1_solution}')
     print(f'Solution to day 1 part 2: {part_2_solution}')
     print('*' * 80)
-    return part_1_solution, part_2_solution
+    return (part_1_solution, part_2_solution)
 
 
 def read_puzzle_input(
@@ -106,9 +110,16 @@ def solve_part_1(
 
 
 def solve_part_2(
-) -> None:
-    return None
+    left: list[int],
+    right: list[int],
+) -> int:
+    similarity_score = 0
+    left_numbers = set(left)
+    right_occurrences = collections.Counter(right)
+    for number in left_numbers:
+        similarity_score += number * right_occurrences[number]
+    return similarity_score
 
 
 if __name__ == '__main__':
-    main()
+    main('day_1.txt')
