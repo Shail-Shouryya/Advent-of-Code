@@ -55,7 +55,7 @@ Update your analysis by handling situations where the Problem Dampener can remov
 
 def main(
     file_location: str,
-) -> tuple[int, None]:
+) -> tuple[int, int]:
     reports         = read_puzzle_input(file_location)
     print('*' * 80)
     part_1_solution = solve_part_1(reports)
@@ -90,9 +90,9 @@ def solve_part_1(
 
 
 def report_is_safe(
-    report: list[list[int]],
+    report: list[int],
     absolute_difference: int = 3,
-) -> bool:
+) -> int:
     is_safe  = 1
     previous = report[0]                   # initialize to first value of list
     change   = (report[1] - report[0]) > 0 # all changes must be either positive or negative
@@ -125,9 +125,9 @@ def solve_part_2(
 
 
 def report_is_safe_after_dampening(
-    report: list[list[int]],
+    report: list[int],
     absolute_difference: int = 3,
-) -> bool:
+) -> int:
     levels = len(report)
     safe_after_dampening = 0
     for index in range(levels):
