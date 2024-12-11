@@ -62,12 +62,12 @@ How many stones would you have after blinking a total of 75 times?
 
 def main(
     file_location: str,
-) -> tuple[int, None]:
+) -> tuple[int, int]:
     stones     = read_puzzle_input(file_location)
     print('*' * 80)
     part_1_solution = solve_part_1(stones)
     print('*' * 80)
-    part_2_solution = solve_part_2()
+    part_2_solution = solve_part_2(stones)
     print('*' * 80)
     print(f'Solution to day 11 part 1: {part_1_solution}')
     print(f'Solution to day 11 part 2: {part_2_solution}')
@@ -115,8 +115,37 @@ def transform_stone_line(
 
 
 def solve_part_2(
-) -> None:
-    pass
+    stones: list[int],
+) -> int:
+    blinks = 75
+    number_of_stones_after_75_blinks = transform_stone_line_still_too_slow(stones, blinks)
+    return number_of_stones_after_75_blinks
+
+
+def transform_stone_line_still_too_slow(
+    stones: list[int],
+    blinks: int
+) -> int:
+    total_stones = 0
+    for start in stones:
+        current = [start]
+        for iteration in range(blinks):
+            updated_line = []
+            for stone in current:
+                if stone == 0: updated_line.append(1)
+                elif len(str(stone)) % 2 == 0:
+                    stone_s = str(stone)
+                    total = len(stone_s)
+                    left, right = stone_s[:total//2], stone_s[total//2:]
+                    updated_line.append(int(left))
+                    updated_line.append(int(right))
+                else:
+                    updated_line.append(stone * 2024)
+            current = updated_line
+            # print(start, iteration, len(current), current)
+        total_stones += len(updated_line)
+        # print(stone, total_stones)
+    return total_stones
 
 
 if __name__ == '__main__':
