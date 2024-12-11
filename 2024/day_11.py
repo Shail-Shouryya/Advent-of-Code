@@ -54,3 +54,67 @@ Consider the arrangement of stones in front of you. How many stones will you hav
 
 
 '''
+
+
+
+def main(
+    file_location: str,
+) -> tuple[int, None]:
+    stones     = read_puzzle_input(file_location)
+    print('*' * 80)
+    part_1_solution = solve_part_1(stones)
+    print('*' * 80)
+    part_2_solution = solve_part_2()
+    print('*' * 80)
+    print(f'Solution to day 11 part 1: {part_1_solution}')
+    print(f'Solution to day 11 part 2: {part_2_solution}')
+    print('*' * 80)
+    return (part_1_solution, part_2_solution)
+
+
+def read_puzzle_input(
+    file_location: str,
+) -> list[int]:
+    stones = []
+    with open(file=file_location, mode='r', buffering=-1, encoding='utf-8', newline=None) as file:
+        for stone in file.read().split():
+            stones.append(int(stone))
+    print(stones)
+    return stones
+
+
+def solve_part_1(
+    stones: list[int],
+) -> int:
+    number_of_stones_after_25_blinks = transform_stone_line(stones, 25)
+    print(f'There are {number_of_stones_after_25_blinks} stones after 25 blinks')
+    return number_of_stones_after_25_blinks
+
+
+def transform_stone_line(
+    stones: list[int],
+    blinks: int
+) -> int:
+    for _ in range(blinks):
+        updated_line = []
+        for stone in stones:
+            if stone == 0: updated_line.append(1)
+            elif len(str(stone)) % 2 == 0:
+                stone_s = str(stone)
+                total = len(stone_s)
+                left, right = stone_s[:total//2], stone_s[total//2:]
+                updated_line.append(int(left))
+                updated_line.append(int(right))
+            else:
+                updated_line.append(stone * 2024)
+        stones = updated_line
+    return len(updated_line)
+
+
+def solve_part_2(
+) -> None:
+    pass
+
+
+if __name__ == '__main__':
+    main('day_11.txt')
