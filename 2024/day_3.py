@@ -36,11 +36,12 @@ This time, the sum of the results is 48 (2*4 + 8*5).
 Handle the new instructions; what do you get if you add up all of the results of just the enabled multiplications?
 '''
 
+import collections
 import re
 
 def main(
     file_location: str,
-) -> tuple[int, None]:
+) -> tuple[int, int]:
     instructions         = read_puzzle_input(file_location)
     print('*' * 80)
     part_1_solution = solve_part_1(instructions)
@@ -61,7 +62,15 @@ def read_puzzle_input(
 
 
 def solve_part_1(
-    instructions: str
+    instructions: str,
+) -> int:
+    sum_of_all_products = multiply_pairs(instructions)
+    print(f'The sum of adding up all of the results of the multiplications is {sum_of_all_products}')
+    return sum_of_all_products
+
+
+def multiply_pairs(
+    instructions: str,
 ) -> int:
     pairs = re.findall(
         'mul\((\d{1,3},\d{1,3})\)',
@@ -71,14 +80,34 @@ def solve_part_1(
     for pair in pairs:
         first, second = pair.split(',')
         sum_of_all_products += int(first) * int(second)
-    print(f'The sum of adding up all of the results of the multiplications is {sum_of_all_products}')
     return sum_of_all_products
 
 
 def solve_part_2(
     instructions: str
-) -> None:
-    pass
+) -> int:
+    formatted_instructions = format_instructions(instructions)
+    sum_of_all_products_after_formatting =  multiply_pairs(formatted_instructions)
+    print(f'The sum of adding up all of the results of the multiplications after formatting the instructions is {sum_of_all_products_after_formatting}')
+    return sum_of_all_products_after_formatting
+
+
+def format_instructions(
+    instructions: str,
+) -> str:
+    keep                          = []
+    index, total                  = 0, len(instructions)
+    ignore_instructions           = False
+    queue: collections.deque[str] = collections.deque(maxlen=7)
+    while index < total:
+        character = instructions[index]
+        queue.append(character)
+        if   len(queue) >= 7 and ''.join(queue) == "don't()": ignore_instructions = True;  queue.clear()
+        elif len(queue) >= 4 and 'do()' in ''.join(queue):    ignore_instructions = False; queue.clear()
+        if ignore_instructions is False:
+            keep.append(character)
+        index += 1
+    return ''.join(keep)
 
 
 if __name__ == '__main__':
