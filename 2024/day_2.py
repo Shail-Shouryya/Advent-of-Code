@@ -31,6 +31,25 @@ In the example above, the reports can be found safe or unsafe by checking those 
 So, in this example, 2 reports are safe.
 
 Analyze the unusual data from the engineers. How many reports are safe?
+
+--- Part Two ---
+The engineers are surprised by the low number of safe reports until they realize they forgot to tell you about the Problem Dampener.
+
+The Problem Dampener is a reactor-mounted module that lets the reactor safety systems tolerate a single bad level in what would otherwise be a safe report. It's like the bad level never happened!
+
+Now, the same rules apply as before, except if removing a single level from an unsafe report would make it safe, the report instead counts as safe.
+
+More of the above example's reports are now safe:
+
+7 6 4 2 1: Safe without removing any level.
+1 2 7 8 9: Unsafe regardless of which level is removed.
+9 7 6 2 1: Unsafe regardless of which level is removed.
+1 3 2 4 5: Safe by removing the second level, 3.
+8 6 4 4 1: Safe by removing the third level, 4.
+1 3 6 7 9: Safe without removing any level.
+Thanks to the Problem Dampener, 4 reports are actually safe!
+
+Update your analysis by handling situations where the Problem Dampener can remove a single level from unsafe reports. How many reports are now safe?
 '''
 
 
@@ -93,8 +112,33 @@ def report_is_safe(
 
 def solve_part_2(
     reports: list[list[int]],
-) -> None:
-    return None
+) -> int:
+    safe_reports = 0
+    for count, report in enumerate(reports, 1):
+        already_safe = report_is_safe(report)
+        if already_safe:
+            safe_reports += 1
+        else:
+            safe_reports += report_is_safe_after_dampening(report)
+    print(f'The number of safe reports from {count} reports after dampening is: {safe_reports}')
+    return safe_reports
+
+
+def report_is_safe_after_dampening(
+    report: list[list[int]],
+    absolute_difference: int = 3,
+) -> bool:
+    levels = len(report)
+    safe_after_dampening = 0
+    for index in range(levels):
+        safe_after_dampening = report_is_safe(
+            report[:index]   # all levels up to but excluding index level
+            +
+            report[index+1:] # all levels after index level
+            )
+        if safe_after_dampening:
+            break
+    return safe_after_dampening
 
 
 if __name__ == '__main__':
