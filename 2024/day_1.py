@@ -87,7 +87,7 @@ def main(
 
 def read_puzzle_input(
     file_name: str,
-) -> tuple[int, int]:
+) -> tuple[list[int], list[int]]:
     left, right = [], []
     with open(file=file_name, mode='r', buffering=-1, encoding='utf-8', newline=None) as file:
         for line in file:
